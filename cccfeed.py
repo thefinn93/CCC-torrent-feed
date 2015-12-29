@@ -8,9 +8,9 @@ from datetime import datetime
 
 
 app = Flask(__name__)
-app.config['RSS_URL_BASE'] = "https://media.ccc.de/c/32c3/podcast/"
+app.config['FEED_URL_BASE'] = "https://media.ccc.de/c/32c3/podcast/"
 app.config['REQUEST_HEADERS'] = {
-    "User-Agent": "CCC Torrent RSS Feed Maker"
+    "User-Agent": "CCC Torrent Feed Maker"
 }
 app.config.from_pyfile('config.py', silent=True)
 
@@ -59,9 +59,9 @@ def hello():
     return render_template('index.html', feeds=feeds)
 
 
-@app.route("/feed/<name>.rss")
+@app.route("/feed/<name>.atom")
 def feed(name):
-    return scrape("%s/%s.xml" % (app.config['RSS_URL_BASE'], name), ["video/webm"])
+    return scrape("%s/%s.xml" % (app.config['FEED_URL_BASE'], name), ["video/webm"])
 
 
 if __name__ == "__main__":
