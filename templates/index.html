@@ -18,7 +18,7 @@
         <td><a href="{{ url_for('feed', name=feed) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /></a></td>
       </tr>
       {% endfor %}
-    </table>
+    </table><br /><br /><br /><br /><br />
 
     Note: ruTorrent inexplicably prepends the torrent URLs with the feed URL, causing it to break. I
     worked around this with a rule in the Rules Manager (in the context menu of every RSS feed).
