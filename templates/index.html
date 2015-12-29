@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/semantic/dist/semantic.min.css') }}" />
     {% for feed, qualities in feeds.items() %}
       {% for quality in qualities %}
-        <link herf="{{ url_for('feed', name=quality, _external=True) }}" rel="alternate" title = "Podcast feed for {{ quality }} 32C3 torrents" type='application/rss+xml' />
+        <link herf="{{ url_for('feed', name=quality, _external=True) }}" rel="alternate" title = "Podcast feed for {{ quality }} 32C3 torrents" type="application/rss+xml" />
       {% endfor %}
     {% endfor %}
     <style type="text/css">
