@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>32C3 Atom Torrents</title>
+  </head>
+  <body>
+    I've a quick script to hit CCC Atom feed and add .torrent to the links, so they can be loaded
+    into a torrent client or whatever. Here's the URLs n stuff:
+    <table>
+      <thead>
+        <tr><th>Feed</th><th>URL</th><th>icon</th></tr>
+      </thead>
+      {% for feed in feeds %}
+      <tr>
+        <td>{{ feed }}</td>
+        <td><code>{{ url_for('feed', name=feed, _external=True) }}</code></td>
+        <td><a href="{{ url_for('feed', name=feed) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /></a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
