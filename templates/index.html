@@ -19,5 +19,15 @@
       </tr>
       {% endfor %}
     </table>
+
+    Note: ruTorrent inexplicably prepends the torrent URLs with the feed URL, causing it to break. I
+    worked around this with a rule in the Rules Manager (in the context menu of every RSS feed).
+    Create a new rule with the following configuration:<br />
+    <ul>
+      <li /> If the URL fo the torrent <b>description</b> matches pattern: <code>|.*cdn.media.ccc.de/(.*)|i</code>
+      <li /> then replace the URL of the torrent <b>download</b> with: <code>https://cdn.media.ccc.de/${1}</code>
+    </ul>
+    I've read through the ruTorrent RSS code a bit, but haven't figured out why this happens. If anyone
+    has any insight, please <a href="https://github.com/thefinn93/CCC-torrent-feed/issues/new">file an issue</a>
   </body>
 </html>

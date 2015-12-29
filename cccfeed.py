@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, request, render_template, url_for, Response
+from flask import Flask, request, render_template
 from werkzeug.contrib.atom import AtomFeed
 from flask.ext.cache import Cache
 import requests
@@ -40,8 +40,6 @@ def scrape(url, content_types):
         for link in entry.links:
             if link.type in content_types:
                 torrent_url = "%s.torrent" % link.url
-                if request.args.get('relative') is not None:
-                    torrent_url = url_for('proxy_torrent_file', url=torrent_url)
                 out.add(entry.title, summary=entry.summary, url=torrent_url,
                         updated=mktime(entry.updated), published=mktime(entry.published))
     return out.get_response()
@@ -64,24 +62,6 @@ def hello():
 @app.route("/feed/<name>.atom")
 def feed(name):
     return scrape("%s/%s.xml" % (app.config['FEED_URL_BASE'], name), ["video/webm"])
-
-
-@app.route('/torrent/<path:url>')
-@cache.cached(timeout=86400)  # cached for a day
-def proxy_torrent_file(url):
-    response = Response('nope.jpg')
-    if url.startswith('http://cdn.media.ccc.de/congress/') and url.endswith('.torrent'):
-        print("Getting %s" % url)
-        req = requests.get(url, headers=app.config['REQUEST_HEADERS'])
-        print("Got it")
-        response = Response(req.content)
-        print("Recreated response object")
-        response.headers['Content-Type'] = req.headers['Content-Type']
-        print("Set content type")
-    else:
-        response.status = 403
-    return response
-
 
 if __name__ == "__main__":
     app.run()
