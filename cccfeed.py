@@ -41,9 +41,9 @@ def scrape(url, content_types):
             if link.type in content_types:
                 torrent_url = "%s.torrent" % link.url
                 if request.args.get('relative') is not None:
-                    torrent_url = url_for('proxy_torrent_file', url=link.url)
+                    torrent_url = url_for('proxy_torrent_file', url=torrent_url)
                 out.add(entry.title, entry.summary, url=torrent_url, updated=mktime(entry.updated),
-                        published=mktime(entry.published))
+                        published=mktime(entry.published), content_type='application/x-bittorrent')
     return out.get_response()
 
 
