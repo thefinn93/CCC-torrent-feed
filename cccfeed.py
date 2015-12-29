@@ -12,6 +12,12 @@ app.config['FEED_URL_BASE'] = "https://media.ccc.de/c/32c3/podcast/"
 app.config['REQUEST_HEADERS'] = {
     "User-Agent": "CCC Torrent Feed Maker"
 }
+app.config['CONTENT_TYPES'] = [
+    'video/webm',
+    'video/mp4',
+    'audio/mpeg',
+    'audio/opus'
+]
 app.config.from_pyfile('config.py', silent=True)
 
 
@@ -32,13 +38,13 @@ def fetch(url):
     return requests.get(url, headers=app.config['REQUEST_HEADERS']).content
 
 
-def scrape(url, content_types):
+def scrape(url):
     source = feedparser.parse(fetch(url))
     title = source.feed.title
     out = AtomFeed(title, feed_url=request.url, url=request.url_root)
     for entry in source.entries:
         for link in entry.links:
-            if link.type in content_types:
+            if link.type in app.config['CONTENT_TYPES']:
                 torrent_url = "%s.torrent" % link.url
                 out.add(entry.title, summary=entry.summary, url=torrent_url,
                         updated=mktime(entry.updated), published=mktime(entry.published))
@@ -61,7 +67,7 @@ def hello():
 
 @app.route("/feed/<name>.atom")
 def feed(name):
-    return scrape("%s/%s.xml" % (app.config['FEED_URL_BASE'], name), ["video/webm"])
+    return scrape("%s/%s.xml" % (app.config['FEED_URL_BASE'], name))
 
 if __name__ == "__main__":
     app.run()
