@@ -1,0 +1,13 @@
+{
+  "name": "ccc-torrent-rss",
+  "homepage": "https://github.com/thefinn93/CCC-torrent-feed",
+  "authors": [
+    "Finn <finn@finn.io>"
+  ],
+  "description": "Scrapes the public CCC RSS feeds and turns out feeds with .torrent links",
+  "license": "GPLv3",
+  "private": true,
+  "dependencies": {
+    "semantic": "semantic-ui#~2.1.7"
+  }
+}

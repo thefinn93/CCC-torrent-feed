@@ -1,6 +1,9 @@
 ## Configuration
 config.py
 
+# Bower
+static/vendor
+
 #####=== Python ===#####
 
 # Byte-compiled / optimized / DLL files

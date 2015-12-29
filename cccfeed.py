@@ -53,15 +53,12 @@ def scrape(url):
 
 @app.route("/")
 def hello():
-    feeds = [
-        'webm (hd)',
-        'mp4',
-        'webm',
-        'mp3',
-        'opus',
-        'mp4 (html5)',
-        'mp4 (hd)'
-    ]
+    feeds = {
+        'webm': ['webm (hd)', 'webm'],
+        'mp4': ['mp4 (hd)', 'mp4 (html5)', 'mp4'],
+        'mp3': ['mp3'],
+        'opus': ['opus']
+    }
     return render_template('index.html', feeds=feeds)
 
 

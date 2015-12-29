@@ -3,33 +3,51 @@
   <head>
     <meta charset="utf-8">
     <title>32C3 Atom Torrents</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/semantic/dist/semantic.min.css') }}" />
+    <style type="text/css">
+      .container {
+        padding: 5em 0em;
+      }
+    </style>
   </head>
   <body>
-    I've a quick script to hit CCC Atom feed and add .torrent to the links, so they can be loaded
-    into a torrent client or whatever. Here's the URLs n stuff:
-    <table>
-      <thead>
-        <tr><th>Feed</th><th>URL</th><th>icon</th></tr>
-      </thead>
-      {% for feed in feeds %}
-      <tr>
-        <td>{{ feed }}</td>
-        <td><code>{{ url_for('feed', name=feed, _external=True) }}</code></td>
-        <td><a href="{{ url_for('feed', name=feed) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /></a></td>
-      </tr>
-      {% endfor %}
-    </table><br /><br /><br /><br /><br />
-
-    <b>Notes</b><br /><br />
-    <a href="https://github.com/thefinn93/CCC-torrent-feed">Source code can be found here</a>. Feel free to make issues or pull requests.<br /><br />
-    ruTorrent inexplicably prepends the torrent URLs with the feed URL, causing it to break. I
-    worked around this with a rule in the Rules Manager (in the context menu of every RSS feed).
-    Create a new rule with the following configuration:<br />
-    <ul>
-      <li /> If the URL fo the torrent <b>description</b> matches pattern: <code>|.*cdn.media.ccc.de/(.*)|i</code>
-      <li /> then replace the URL of the torrent <b>download</b> with: <code>https://cdn.media.ccc.de/${1}</code>
-    </ul>
-    I've read through the ruTorrent RSS code a bit, but haven't figured out why this happens. If anyone
-    has any insight, please <a href="https://github.com/thefinn93/CCC-torrent-feed/issues/new">file an issue</a>
+    <div class="ui text container">
+      <h1 class="ui dividing header">32C3 Torrent Feeds</h1>
+    </div>
+    <div class="ui container">
+      <div class="ui grid">
+        {% for feed, qualities in feeds.items() %}
+        <div class="four wide column">
+          <div class="ui card">
+            <div class="content">
+              <div class="header">{{ feed }}</div>
+              <div class="extra content">
+                <div class="ui three buttons">
+                  {% for quality in qualities %}
+                    <div class="ui basic orange button">
+                      <a href="{{ url_for('feed', name=quality, _external=True) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /> {{ quality }}</a>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="ui text container">
+      <b>Notes</b><br /><br />
+      <a href="https://github.com/thefinn93/CCC-torrent-feed">Source code can be found here</a>. Feel free to make issues or pull requests.<br /><br />
+      ruTorrent inexplicably prepends the torrent URLs with the feed URL, causing it to break. I
+      worked around this with a rule in the Rules Manager (in the context menu of every RSS feed).
+      Create a new rule with the following configuration:<br />
+      <ul>
+        <li /> If the URL fo the torrent <b>description</b> matches pattern: <code>|.*cdn.media.ccc.de/(.*)|i</code>
+        <li /> then replace the URL of the torrent <b>download</b> with: <code>https://cdn.media.ccc.de/${1}</code>
+      </ul>
+      I've read through the ruTorrent RSS code a bit, but haven't figured out why this happens. If anyone
+      has any insight, please <a href="https://github.com/thefinn93/CCC-torrent-feed/issues/new">file an issue</a>.
+    </div>
   </body>
 </html>
