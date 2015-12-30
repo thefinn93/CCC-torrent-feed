@@ -5,9 +5,10 @@ from flask.ext.cache import Cache
 import requests
 import feedparser
 from datetime import datetime
-
+from reverseproxy import ReverseProxied
 
 app = Flask(__name__)
+app.wsgi_app = ReverseProxied(app.wsgi_app)
 app.config['FEED_URL_BASE'] = "https://media.ccc.de/c/32c3/podcast/"
 app.config['REQUEST_HEADERS'] = {
     "User-Agent": "CCC Torrent Feed Maker"
