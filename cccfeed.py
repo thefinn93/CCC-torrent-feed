@@ -47,7 +47,7 @@ def scrape(url):
         for link in entry.links:
             if link.type in app.config['CONTENT_TYPES']:
                 torrent_url = "%s.torrent" % link.url
-                out.add(entry.title, summary=entry.summary, url=torrent_url,
+                out.add(entry.title, summary=entry.summary, url=torrent_url, xml_base='',
                         updated=mktime(entry.updated), published=mktime(entry.published))
     return out.get_response()
 
