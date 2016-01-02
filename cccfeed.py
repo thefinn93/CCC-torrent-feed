@@ -32,6 +32,7 @@ def mktime(source):
             return datetime.strptime(source.replace("+01:00", "+0100"), f)
         except ValueError:
             pass
+    raise Exception("cannot parse '%s'" % source)
 
 
 @cache.cached(timeout=300)
