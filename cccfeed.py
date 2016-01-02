@@ -7,7 +7,6 @@ import feedparser
 from datetime import datetime
 from reverseproxy import ReverseProxied
 from time import mktime
-from datetime import datetime
 
 app = Flask(__name__)
 app.wsgi_app = ReverseProxied(app.wsgi_app)
@@ -41,7 +40,7 @@ def scrape(url):
             if link.type in app.config['CONTENT_TYPES']:
                 torrent_url = "%s.torrent" % link.url
                 out.add(entry.title, summary=entry.summary, url=torrent_url, xml_base='',
-                        updated=datetime.fromtimestamp(mktime(entry.updated_parsed)), 
+                        updated=datetime.fromtimestamp(mktime(entry.updated_parsed)),
                         published=datetime.fromtimestamp(mktime(entry.published_parsed)))
     return out.get_response()
 
