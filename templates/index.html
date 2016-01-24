@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>32C3 Atom Torrents</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/semantic/dist/semantic.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize.css/normalize.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/milligram/dist/milligram.min.css') }}" />
     {% for feed, qualities in feeds.items() %}
       {% for quality in qualities %}
         <link herf="{{ url_for('feed', name=quality, _external=True) }}" rel="alternate" title = "Podcast feed for {{ quality }} 32C3 torrents" type="application/rss+xml" />
@@ -16,36 +17,27 @@
     </style>
   </head>
   <body>
-    <div class="ui text container">
-      <h1 class="ui dividing header">32C3 Torrent Feeds</h1>
+    <section class="container">
+      <h1>32C3 Torrent Feeds</h1>
       <p>Available via <a href="https://cccfeeds.finn.io">clearnet</a> and as a <a href="http://32c3xt3uy7chnptn.onion">tor onion service</a>
-    </div>
-    <div class="ui container">
-      <div class="ui stackable grid">
+    </section>
+    <section class="container">
+      <div class="row">
         {% for feed, qualities in feeds.items() %}
-        <div class="four wide column">
-          <div class="ui card">
-            <div class="content">
-              <div class="header">{{ feed }}</div>
-              <div class="extra content">
-                <div class="ui three buttons">
-                  {% for quality in qualities %}
-                    <div class="ui basic orange button">
-                      <a href="{{ url_for('feed', name=quality, _external=True) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /> {{ quality }}</a>
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="column">
+          <h2>{{ feed }}</h2>
+          {% for quality in qualities %}
+          <a class="button" href="{{ url_for('feed', name=quality, _external=True) }}"><img src="{{ url_for('static', filename='feed.svg') }}" style="border: 0; height: 1em;" /> {{ quality }}</a>
+          {% endfor %}
         </div>
         {% endfor %}
       </div>
-    </div>
-    <div class="ui text container">
-      <b>Notes</b><br /><br />
-      <a href="https://github.com/thefinn93/CCC-torrent-feed">Source code can be found here</a>. Feel free to make issues or pull requests.<br /><br />
-      <strike>ruTorrent inexplicably prepends the torrent URLs with the feed URL, causing it to break.</strike> <a href="https://github.com/thefinn93/CCC-torrent-feed/pull/2">Fixed, thanks to wimh</a>.
-    </div>
+    </section>
+    <footer class="footer">
+      <section class="container">
+        <h3>Notes</h3><br />
+        <a href="https://github.com/thefinn93/CCC-torrent-feed">Source code can be found here</a>. Feel free to make issues or pull requests.<br /><br />
+      </section>
+    </footer>
   </body>
 </html>
