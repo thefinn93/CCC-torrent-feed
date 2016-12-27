@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>32C3 Atom Torrents</title>
+    <title>33C3 Atom Torrents</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize.css/normalize.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/milligram/dist/milligram.min.css') }}" />
     {% for feed, qualities in feeds.items() %}
       {% for quality in qualities %}
-        <link herf="{{ url_for('feed', name=quality, _external=True) }}" rel="alternate" title = "Podcast feed for {{ quality }} 32C3 torrents" type="application/rss+xml" />
+        <link herf="{{ url_for('feed', name=quality, _external=True) }}" rel="alternate" title = "Podcast feed for {{ quality }} 33C3 torrents" type="application/rss+xml" />
       {% endfor %}
     {% endfor %}
     <style type="text/css">
@@ -18,7 +18,7 @@
   </head>
   <body>
     <section class="container">
-      <h1>32C3 Torrent Feeds</h1>
+      <h1>33C3 Torrent Feeds</h1>
       <p>Available via <a href="https://cccfeeds.finn.io">clearnet</a> and as a <a href="http://32c3xt3uy7chnptn.onion">tor onion service</a>
     </section>
     <section class="container">
